@@ -29,7 +29,7 @@ public class Message implements Serializable {
     private Motorbike motorbike;
 
     @ManyToOne
-    @JoinColumn(name = "message")
+    @JoinColumn(name = "client")
     @JsonIgnoreProperties({"messages","reservations"})
     private Client client;
 
