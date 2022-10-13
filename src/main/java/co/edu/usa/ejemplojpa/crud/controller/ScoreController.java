@@ -4,8 +4,8 @@
  */
 package co.edu.usa.ejemplojpa.crud.controller;
 
-import co.edu.usa.ejemplojpa.crud.models.Category;
-import co.edu.usa.ejemplojpa.crud.services.CategoryService;
+import co.edu.usa.ejemplojpa.crud.models.Score;
+import co.edu.usa.ejemplojpa.crud.services.ScoreService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,40 +25,39 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Victor
  */
-
 @RestController
 @CrossOrigin(origins={"*"})
-@RequestMapping("api/Category")
-public class CategoryController {
+@RequestMapping("api/Score")
+public class ScoreController {
 
     @Autowired
-    private CategoryService categoryService;
+    private ScoreService ScoreService;
 
     @GetMapping("/all")
-    public List<Category> getAll() {
-        return categoryService.getAll();
-    }
-    
-    @GetMapping("/{id}")
-    public Optional<Category> getCategory(@PathVariable("id") int categoryId) {
-        return categoryService.getCategory(categoryId);
+    public List<Score> getAll() {
+        return ScoreService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Score> getScore(@PathVariable("id") int ScoreId) {
+        return ScoreService.getScore(ScoreId);
+    }
+    
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category save(@RequestBody Category c) {
-        return categoryService.save(c);
+    public Score save(@RequestBody Score c) {
+        return ScoreService.save(c);
     }
     
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category update(@RequestBody Category c){
-        return categoryService.update(c);
+    public Score update(@RequestBody Score c){
+        return ScoreService.update(c);
     }
     
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int categoryId){
-        return categoryService.delete(categoryId);
+    public boolean delete(@PathVariable("id") int ScoreId){
+        return ScoreService.delete(ScoreId);
     }
 }

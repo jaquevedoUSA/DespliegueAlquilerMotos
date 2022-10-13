@@ -5,7 +5,13 @@
 package co.edu.usa.ejemplojpa.crud.services;
 
 import co.edu.usa.ejemplojpa.crud.models.Reservation;
+import co.edu.usa.ejemplojpa.crud.models.custom.CountClient;
+import co.edu.usa.ejemplojpa.crud.models.custom.StatusAmount;
 import co.edu.usa.ejemplojpa.crud.repository.ReservationRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,18 @@ public class ReservationService {
     public List<Reservation> getAll() {
         return (List<Reservation>) resRep.getAll();
     }
+    
+     public List<CountClient> getTopClient(){
+        return resRep.getTopClient();
+    }
+    
+    public StatusAmount getStatusReport(){
+        List<Reservation> completed=resRep.getReservationsByStatus("completed");
+        List<Reservation> cancelled=resRep.getReservationsByStatus("cancelled");
+        
+        StatusAmount statAmt=new StatusAmount(completed.size(), cancelled.size());
+        return statAmt;
+    }
 
     public Optional<Reservation> getReservation(int id) {
         return resRep.getReservation(id);
@@ -31,7 +49,7 @@ public class ReservationService {
 
     public Reservation save(Reservation c) {
         if (c.getIdReservation() == null) {
-            c.setStatus("created");
+          //  c.setStatus("created");
             return resRep.save(c);
         } else {
             Optional<Reservation> caux = resRep.getReservation(c.getIdReservation());
@@ -94,5 +112,26 @@ public class ReservationService {
             flag = true;
         }
         return flag;
+    }
+    
+    public List<Reservation> getReservationPeriod(String dateOne, String dateTwo){
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+        
+        try {
+            a = format.parse(dateOne);
+            b = format.parse(dateTwo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        if (a.before(b)) {
+            return resRep.getReservationPeriod(a,b);
+        } else {
+            return new ArrayList<>();
+        }
+        
     }
 }

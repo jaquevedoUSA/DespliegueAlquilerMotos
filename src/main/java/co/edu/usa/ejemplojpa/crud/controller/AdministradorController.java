@@ -4,8 +4,8 @@
  */
 package co.edu.usa.ejemplojpa.crud.controller;
 
-import co.edu.usa.ejemplojpa.crud.models.Category;
-import co.edu.usa.ejemplojpa.crud.services.CategoryService;
+import co.edu.usa.ejemplojpa.crud.models.Administrador;
+import co.edu.usa.ejemplojpa.crud.services.AdministradorService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,40 +25,39 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Victor
  */
-
 @RestController
 @CrossOrigin(origins={"*"})
-@RequestMapping("api/Category")
-public class CategoryController {
+@RequestMapping("api/Admin")
+public class AdministradorController {
 
     @Autowired
-    private CategoryService categoryService;
+    private AdministradorService AdminService;
 
     @GetMapping("/all")
-    public List<Category> getAll() {
-        return categoryService.getAll();
-    }
-    
-    @GetMapping("/{id}")
-    public Optional<Category> getCategory(@PathVariable("id") int categoryId) {
-        return categoryService.getCategory(categoryId);
+    public List<Administrador> getAll() {
+        return AdminService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Administrador> getAdministrador(@PathVariable("id") int AdministradorId) {
+        return AdminService.getAdministrador(AdministradorId);
+    }
+    
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category save(@RequestBody Category c) {
-        return categoryService.save(c);
+    public Administrador save(@RequestBody Administrador c) {
+        return AdminService.save(c);
     }
     
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category update(@RequestBody Category c){
-        return categoryService.update(c);
+    public Administrador update(@RequestBody Administrador c){
+        return AdminService.update(c);
     }
     
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int categoryId){
-        return categoryService.delete(categoryId);
+    public boolean delete(@PathVariable("id") int AdministradorId){
+        return AdminService.delete(AdministradorId);
     }
 }

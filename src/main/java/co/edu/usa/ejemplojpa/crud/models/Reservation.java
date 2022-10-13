@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -50,8 +51,10 @@ public class Reservation implements Serializable {
     @JsonIgnoreProperties({"reservations","messages"})
     private Client client;
 
-    @Column(name = "score", length = 255, nullable = true, unique = false)
-    private Integer score;
+     @OneToOne
+    @JoinColumn(name = "score")
+    @JsonIgnoreProperties({"reservation","messageText"})
+    private Score score;
 
     public Reservation() {
     }
@@ -60,7 +63,7 @@ public class Reservation implements Serializable {
         this.idReservation = idReservation;
     }
 
-    public Reservation(Integer idReservation, Date startDate, Date devolutionDate, String status, Motorbike motorbike, Client client, Integer score) {
+    public Reservation(Integer idReservation, Date startDate, Date devolutionDate, String status, Motorbike motorbike, Client client, Score score) {
         this.idReservation = idReservation;
         this.startDate = startDate;
         this.devolutionDate = devolutionDate;
@@ -157,16 +160,16 @@ public class Reservation implements Serializable {
     /**
      * @return the score
      */
-    public Integer getScore() {
+    public Score getScore() {
         return score;
     }
 
     /**
      * @param score the score to set
      */
-    public void setScore(Integer score) {
+    public void setScore(Score score) {
         this.score = score;
     }
-
+    
     
 }

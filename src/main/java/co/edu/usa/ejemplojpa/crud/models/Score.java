@@ -14,93 +14,92 @@ import javax.persistence.*;
  * @author USER2022
  */
 @Entity
-@Table(name = "category")
+@Table(name = "score")
 public class Score implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "name", length = 45, nullable = false, unique = false)
-    private String name;
+    private Integer idScore;
 
     @Column(name = "description", length = 250, nullable = false, unique = false)
-    private String description;
+    private String messageText;
+    
+    @Column(name = "stars", length = 45, nullable = false, unique = false)
+    private Integer stars;
 
-    //@JoinColumn(name="category")
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "category")
-    @JsonIgnoreProperties("category")
-    private List<Motorbike> motorbikes;
+    @OneToOne(cascade = {CascadeType.PERSIST}, mappedBy = "score")
+    @JsonIgnoreProperties("score")
+    private Reservation reservation;
 
     public Score() {
     }
 
-    public Score(Integer id) {
-        this.id = id;
+    public Score(Integer idScore) {
+        this.idScore = idScore;
     }
 
-    public Score(Integer id, String name, String description, List<Motorbike> motorbikes) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.motorbikes = motorbikes;
+    public Score(Integer idScore, String messageText, Integer stars, Reservation reservation) {
+        this.idScore = idScore;
+        this.messageText = messageText;
+        this.stars = stars;
+        this.reservation = reservation;
     }
 
+    /**
+     * @return the idScore
+     */
+    public Integer getIdScore() {
+        return idScore;
+    }
+
+    /**
+     * @param idScore the idScore to set
+     */
+    public void setIdScore(Integer idScore) {
+        this.idScore = idScore;
+    }
+
+    /**
+     * @return the messageText
+     */
+    public String getMessageText() {
+        return messageText;
+    }
+
+    /**
+     * @param messageText the messageText to set
+     */
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
+    }
+
+    /**
+     * @return the stars
+     */
+    public Integer getStars() {
+        return stars;
+    }
+
+    /**
+     * @param stars the stars to set
+     */
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
+    /**
+     * @return the reservation
+     */
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    /**
+     * @param reservation the reservation to set
+     */
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
     
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * @return the motorbikes
-     */
-    public List<Motorbike> getMotorbikes() {
-        return motorbikes;
-    }
-
-    /**
-     * @param motorbikes the motorbikes to set
-     */
-    public void setMotorbikes(List<Motorbike> motorbikes) {
-        this.motorbikes = motorbikes;
-    }
-
+    
 }
