@@ -29,7 +29,7 @@ public class Score implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "reservation")
-    @JsonIgnoreProperties({"score","client","motorbike"})
+    @JsonIgnoreProperties({"score","client"})
     private Reservation reservation;
     
     public Score() {
