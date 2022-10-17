@@ -21,16 +21,17 @@ public class Score implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idScore;
 
-    @Column(name = "description", length = 250, nullable = false, unique = false)
+    @Column(name = "messageText", length = 250, nullable = false, unique = false)
     private String messageText;
     
     @Column(name = "stars", length = 45, nullable = false, unique = false)
     private Integer stars;
 
-    @OneToOne(cascade = {CascadeType.PERSIST}, mappedBy = "score")
-    @JsonIgnoreProperties("score")
+    @OneToOne
+    @JoinColumn(name = "reservation")
+    @JsonIgnoreProperties({"score","client","motorbike"})
     private Reservation reservation;
-
+    
     public Score() {
     }
 

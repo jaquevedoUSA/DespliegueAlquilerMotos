@@ -7,6 +7,7 @@ package co.edu.usa.ejemplojpa.crud.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,8 +52,7 @@ public class Reservation implements Serializable {
     @JsonIgnoreProperties({"reservations","messages"})
     private Client client;
 
-     @OneToOne
-    @JoinColumn(name = "score")
+    @OneToOne (cascade = {CascadeType.PERSIST}, mappedBy = "reservation")
     @JsonIgnoreProperties({"reservation","messageText"})
     private Score score;
 
